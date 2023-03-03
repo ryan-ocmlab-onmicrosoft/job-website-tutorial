@@ -1,10 +1,32 @@
-from flask import Flask
+from flask import Flask, render_template
 
 app = Flask(__name__)
 
+CONCERTS = [
+    {
+        'id':1,
+        'Date': '2023-03-15',
+        'Time': '17:30',
+        'Location': '台北/中山堂'
+    },
+    {
+        'id':2,
+        'Date': '2023-03-22',
+        'Time': '18:00',
+        'Location': '台北/國家音樂廳'
+    },
+    {
+        'id':3,
+        'Date': '2023-03-29',
+        'Time': '18:00',
+        'Location': '高雄/衛武營'
+    }
+
+]
+
 @app.route('/')
-def hello():
-    return 'Hello, World!'
+def my_first_page():
+    return render_template('home.html', concerts=CONCERTS)
 
 if __name__ == '__main__':
-    app.run()
+    app.run(host='0.0.0.0', debug=True, port=5001)
