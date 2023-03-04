@@ -1,38 +1,60 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>芬棻音樂工作坊</title>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
-        <style>
-        </style>
-    </head>
-    <body>
-        <h1 class="text-center fs-1 lh-lg fw-bold">芬棻音樂工作坊</h1>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>芬棻音樂工作坊</title>
+    <link
+      href="/static/bootstrap-5.3.0-alpha1-dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <style></style>
+  </head>
+  <body>
+    <div class="container">
+      <h1 class="text-center fs-1 lh-lg fw-bold">芬棻音樂工作坊</h1>
+      <img class="img-fluid rounded" id="Annie" src="/static/IMG_sample.JPG" />
+      <h2 class="text-start mt-4 mb-2 fs-3 lh-lg fw-semibold fw-normal">
+        關於我們的故事
+      </h2>
 
-        <img class="img-fluid rounded" id="Annie" src="/static/IMG_sample.JPG" >
-
-        <h2 class="text-start mt-4 mb-2 fs-3 lh-lg fw-semibold fw-normal">關於我們的故事</h2>
-
-        <p class="col-10 font-monospace text-start text-wrap fw-bolder" style="width: 60rem;">
-            Welcome to our classical music studio, where we're dedicated to providing high-quality music education and performance opportunities for students of all ages and skill levels.
-
-Our studio is led by experienced instructors who are passionate about classical music and committed to helping each student reach their full potential. Whether you're just starting out or looking to refine your skills, we offer a wide range of programs and classes to help you achieve your musical goals.
-
-Our curriculum includes private lessons, group classes, workshops, and performance opportunities, all designed to foster a deep appreciation and understanding of classical music. We believe in a holistic approach to music education that includes not only technique and theory, but also the development of creativity, expression, and a love for the art form.
-
-Our state-of-the-art facilities provide a welcoming and inspiring environment for learning and practice. We offer access to a variety of instruments, including pianos, strings, winds, and percussion, and our performance spaces are designed to showcase the beauty and richness of classical music.
-
-We're proud to be a part of the vibrant classical music community, and we're committed to sharing our love and knowledge of this timeless art form with our students and audiences alike.
-
-Thank you for considering our studio for your music education needs. We look forward to working with you and helping you discover the joy of classical music.
-        </p>
-        <h2 class="text-center mt-4 mb-2 fs-3 lh-lg fw-semibold fw-normal">我們最近的活動</h2>
-        <div>
-            {% for concert in concerts %}
-                {% include 'concertlist.html' %}
-            {% endfor %}
+      <p class="col-10 font-monospace text-start text-wrap fw-bolder">
+        Welcome to our classical music studio, where we're dedicated to
+        providing high-quality music education and performance opportunities for
+        students of all ages and skill levels. Our studio is led by experienced
+        instructors who are passionate about classical music and committed to
+        helping each student reach their full potential. Whether you're just
+        starting out or looking to refine your skills, we offer a wide range of
+        programs and classes to help you achieve your musical goals. Our
+        curriculum includes private lessons, group classes, workshops, and
+        performance opportunities, all designed to foster a deep appreciation
+        and understanding of classical music. We believe in a holistic approach
+        to music education that includes not only technique and theory, but also
+        the development of creativity, expression, and a love for the art form.
+        Our state-of-the-art facilities provide a welcoming and inspiring
+        environment for learning and practice. We offer access to a variety of
+        instruments, including pianos, strings, winds, and percussion, and our
+        performance spaces are designed to showcase the beauty and richness of
+        classical music. We're proud to be a part of the vibrant classical music
+        community, and we're committed to sharing our love and knowledge of this
+        timeless art form with our students and audiences alike. Thank you for
+        considering our studio for your music education needs. We look forward
+        to working with you and helping you discover the joy of classical music.
+      </p>
+      <h2 class="text-center mt-4 mb-2 fs-3 lh-lg fw-semibold fw-normal">
+        我們最近的活動
+      </h2>
+      <div class="container">
+        <div class="row text-center mb-3 fs-4 fw-bold">
+          <div class="col-4">演出地點</div>
+          <div class="col-2">日期</div>
+          <div class="col-2">時間</div>
         </div>
-    </body>
+        <div>
+          {% for concert in concerts %} {% include 'concertlist.html' %}
+          {%endfor%}
+        </div>
+      </div>
+    </div>
+  </body>
 </html>
