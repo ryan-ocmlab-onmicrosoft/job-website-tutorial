@@ -1,8 +1,2 @@
-openai
-numpy
-pandas
-scipy
 flask
-scikit-learn
-matplotlib
-plotly
+gunicorn
