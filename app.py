@@ -89,13 +89,13 @@ def favicon():
 def my_first_page():
     return render_template('home.html', concerts=CONCERTS)
 
-@app.route('/about')
-def my_second_page():
-    return render_template('about.html')
+@app.route('/login')
+def login_page():
+    return render_template('login.html')
 
-@app.route('/contact')
-def my_third_page():
-    return render_template('contact.html')
+@app.route('/register')
+def register_page():
+    return render_template('register.html')
 
 @app.route('/concerts')
 def my_fourth_page():
