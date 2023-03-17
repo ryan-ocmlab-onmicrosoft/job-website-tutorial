@@ -105,5 +105,9 @@ def my_fourth_page():
 def google_page():
     return render_template('google3d01949f3bff88dd.html')
 
+@app.route('/oauth2callback')
+def oauth2callback_page():
+    return render_template('oauth2callback.html')
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True, port=5001)
