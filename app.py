@@ -101,5 +101,9 @@ def register_page():
 def my_fourth_page():
     return render_template('concerts.html', concerts=CONCERTS)
 
+@app.route('/google3d01949f3bff88dd.html')
+def google_page():
+    return render_template('google3d01949f3bff88dd.html')
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True, port=5001)
