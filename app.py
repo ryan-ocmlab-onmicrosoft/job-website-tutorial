@@ -1,45 +1,3 @@
-# The specification of this program is below :
-# 1. Create a Flask app
-# 2. Create a route for the home page
-# 3. Create a route for the about page
-# 4. Create a route for the contact page
-# 5. Create a route for the concerts page
-# 6. Create a route for the tickets page
-# 7. Create a route for the login page
-# 8. Create a route for the register page
-# 9. Create a route for the logout page
-# 10. Create a route for the admin page
-# 11. Create a route for the admin concerts page
-# 12. Create a route for the admin concerts add page
-# 13. Create a route for the admin concerts edit page
-# 14. Create a route for the admin concerts delete page
-# 15. Create a route for the admin tickets page
-# 16. Create a route for the admin tickets add page
-# 17. Create a route for the admin tickets edit page
-# 18. Create a route for the admin tickets delete page
-# 19. Create a route for the admin users page
-# 20. Create a route for the admin users add page
-# 21. Create a route for the admin users edit page
-# 22. Create a route for the admin users delete page
-# 23. Create a route for the admin users login page
-# 24. Create a route for the admin users register page
-# 25. Create a route for the admin users logout page
-# 26. Create a route for the admin users profile page
-# 27. Create a route for the admin users profile edit page
-# 28. Create a route for the admin users profile delete page
-# 29. Create a route for the admin users profile password page
-# 30. Create a route for the admin users profile password edit page
-# 31. Create a route for the admin users profile password delete page
-# 32. Create a route for the admin users profile password change page
-# 33. Create a route for the admin users profile password change edit page
-# 34. Create a route for the admin users profile password change delete page
-# 35. Create a route for the admin users profile password change confirm page
-# 36. Create a route for the admin users profile password change confirm edit page
-# 37. Create a route for the admin users profile password change confirm delete page
-# 38. Create a route for the admin users profile password change confirm cancel page
-# 39. Create a route for the admin users profile password change confirm cancel edit page
-# 40. Create a route for the admin users profile password change confirm cancel delete page
-
 import os
 from flask import Flask, render_template, send_from_directory, request
 
@@ -107,8 +65,8 @@ def google_page():
 
 @app.route('/oauth2callback', methods=['GET', 'POST'])
 def oauth2callback_page():
-    print(request)
-    return render_template('oauth2callback.html', request=request)
+    print(request.args.keys)
+    return render_template('oauth2callback.html', request=request.args.keys)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True, port=5001)
