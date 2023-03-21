@@ -65,9 +65,9 @@ def google_page():
 
 @app.route('/oauth2callback', methods=['GET', 'POST'])
 def oauth2callback_page():
-    data=request.form
-    print(data)
-    return render_template('oauth2callback.html', request=data)
+    form_data=request.form
+    print(form_data)
+    return render_template('oauth2callback.html', request=form_data)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True, port=5001)
