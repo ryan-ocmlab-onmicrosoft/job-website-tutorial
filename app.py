@@ -41,7 +41,7 @@
 # 40. Create a route for the admin users profile password change confirm cancel delete page
 
 import os
-from flask import Flask, render_template, send_from_directory
+from flask import Flask, render_template, send_from_directory, request
 
 app = Flask(__name__, static_url_path='/static', static_folder='static')
 
@@ -107,7 +107,8 @@ def google_page():
 
 @app.route('/oauth2callback', methods=['GET', 'POST'])
 def oauth2callback_page():
-    return render_template('oauth2callback.html')
+    print(request)
+    return render_template('oauth2callback.html', request=request)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True, port=5001)
