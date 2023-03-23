@@ -1,5 +1,17 @@
 import os
-from flask import Flask, render_template, send_from_directory, request
+from flask import Flask, render_template, send_from_directory, request, redirect
+from requests_oauthlib import OAuth2Session
+
+# Credentials you get from registering a new application
+client_id = os.getenv('CLIENT_ID')
+client_secret = os.getenv('CLIENT_SECRET')
+redirect_uri = os.getenv('REDIRECT_URI')
+
+# OAuth endpoints given in the Google API documentation
+authorization_base_url = "https://accounts.google.com/o/oauth2/v2/auth"
+token_url = "https://www.googleapis.com/oauth2/v4/token"
+scope = ["openid", "https://www.googleapis.com/auth/userinfo.email", "https://www.googleapis.com/auth/userinfo.profile"]
+
 
 app = Flask(__name__, static_url_path='/static', static_folder='static')
 
@@ -53,7 +65,13 @@ def login_page():
 
 @app.route('/register')
 def register_page():
-    return render_template('register.html')
+    google = OAuth2Session(client_id, scope=scope, redirect_uri=redirect_uri)
+    # Redirect user to Google for authorization
+    # offline for refresh token
+    # force to always make user click authorize
+    authorization_url, state = google.authorization_url(authorization_base_url, access_type="offline", prompt="select_account")
+
+    return redirect(authorization_url)
 
 @app.route('/concerts')
 def my_fourth_page():
