@@ -14,7 +14,8 @@ scope = ["openid", "https://www.googleapis.com/auth/userinfo.email", "https://ww
 
 
 app = Flask(__name__, static_url_path='/static', static_folder='static')
-app.secret_key = os.urandom(24)
+# app.secret_key = os.urandom(24)
+app.secret_key = os.getenv('SECRET_KEY')
 
 CONCERTS = [
     {
