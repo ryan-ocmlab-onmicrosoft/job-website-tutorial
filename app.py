@@ -1,5 +1,5 @@
 import os
-from flask import Flask, render_template, send_from_directory, request, redirect, session
+from flask import Flask, render_template, send_from_directory, request, redirect, session, json
 from requests_oauthlib import OAuth2Session
 
 
@@ -75,7 +75,8 @@ def register_page():
     authorization_url, state = google.authorization_url(authorization_base_url, access_type="offline", prompt="select_account")
 
     # Serialized, store google object in session
-    session["google"] = google.__dict__
+    google_json = json.dumps(google)
+    session["google"] = google_json
 
     return redirect(authorization_url)
 
@@ -92,9 +93,10 @@ def oauth2callback_page():
     # Get the authorization verifier code from the callback url
     redirect_response = request.url
 
-    # Deserialize google object from session
-    google_dict = session["google"]
-    google=google(**google_dict)
+    # get json from session
+    google_json = session["google"]
+    # convert google_json to google object
+    google= json.loads(google_json)
 
     # Fetch the access token
     google.fetch_token(token_url, client_secret=client_secret, authorization_response=redirect_response)
