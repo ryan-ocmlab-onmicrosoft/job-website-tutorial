@@ -95,7 +95,7 @@ def oauth2callback_page():
     # google = session["oauth_session"]
 
     # Fetch the access token
-    google.fetch_token(token_url, client_secret=client_secret, authorization_response=redirect_response)
+    # google.fetch_token(token_url, client_secret=client_secret, authorization_response=redirect_response)
 
     # Fetch a protected resource, i.e. user profile
     # r = google.get('https://www.googleapis.com/oauth2/v1/userinfo')
