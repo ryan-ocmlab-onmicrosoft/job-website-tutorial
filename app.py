@@ -2,6 +2,7 @@ import os
 from flask import Flask, render_template, send_from_directory, request, redirect, session
 from requests_oauthlib import OAuth2Session
 
+
 # Credentials you get from registering a new application
 client_id = os.getenv('CLIENT_ID')
 client_secret = os.getenv('CLIENT_SECRET')
@@ -74,7 +75,7 @@ def register_page():
     authorization_url, state = google.authorization_url(authorization_base_url, access_type="offline", prompt="select_account")
 
     # State is used to prevent CSRF, keep this for later.
-    session["oauth_session"] = google
+    # session["oauth_session"] = google
 
     return redirect(authorization_url)
 
@@ -91,16 +92,16 @@ def oauth2callback_page():
     # Get the authorization verifier code from the callback url
     redirect_response = request.url
 
-    google = session["oauth_session"]
+    # google = session["oauth_session"]
 
     # Fetch the access token
     google.fetch_token(token_url, client_secret=client_secret, authorization_response=redirect_response)
 
     # Fetch a protected resource, i.e. user profile
-    r = google.get('https://www.googleapis.com/oauth2/v1/userinfo')
-    print('Response UserInfo :')
-    print(r.content)
-    return render_template('oauth2callback.html', request=form_data)
+    # r = google.get('https://www.googleapis.com/oauth2/v1/userinfo')
+    # print('Response UserInfo :')
+    # print(r.content)
+    return render_template('oauth2callback.html')
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True, port=5001)
