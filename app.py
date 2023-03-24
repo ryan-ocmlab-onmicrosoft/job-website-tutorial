@@ -73,7 +73,7 @@ def register_page():
     authorization_url, state = google.authorization_url(authorization_base_url, access_type="offline", prompt="select_account")
 
     # State is used to prevent CSRF, keep this for later.
-    session["oauth_session"] = google
+    # session["oauth_session"] = google
 
     return redirect(authorization_url)
 
@@ -90,7 +90,7 @@ def oauth2callback_page():
     # Get the authorization verifier code from the callback url
     redirect_response = request.url
 
-    google = session["oauth_session"]
+    # google = session["oauth_session"]
 
     # Fetch the access token
     google.fetch_token(token_url, client_secret=client_secret, authorization_response=redirect_response)
