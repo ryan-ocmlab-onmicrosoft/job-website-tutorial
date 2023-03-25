@@ -1,7 +1,9 @@
 import os
-from flask import Flask, render_template, send_from_directory, request, redirect, session, json
+from flask import Flask, render_template, send_from_directory, request, redirect, session
 from requests_oauthlib import OAuth2Session
 
+# disable SSL verification for development; test in localhost
+os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
 
 # Credentials you get from registering a new application
 client_id = os.getenv('CLIENT_ID')
@@ -12,6 +14,8 @@ redirect_uri = os.getenv('REDIRECT_URI')
 authorization_base_url = "https://accounts.google.com/o/oauth2/v2/auth"
 token_url = "https://www.googleapis.com/oauth2/v4/token"
 scope = ["openid", "https://www.googleapis.com/auth/userinfo.email", "https://www.googleapis.com/auth/userinfo.profile"]
+
+google = OAuth2Session(client_id, scope=scope, redirect_uri=redirect_uri)
 
 
 app = Flask(__name__, static_url_path='/static', static_folder='static')
@@ -60,23 +64,18 @@ def favicon():
 
 @app.route('/')
 def my_first_page():
-    return render_template('home.html', concerts=CONCERTS)
+    if 'username' in session:
+        username = session.get('username')
+        return render_template('home.html', username=username)
+    else:
+        return render_template('home.html', username=None)
 
 @app.route('/login')
 def login_page():
-    return render_template('login.html')
-
-@app.route('/register')
-def register_page():
-    google = OAuth2Session(client_id, scope=scope, redirect_uri=redirect_uri)
     # Redirect user to Google for authorization
     # offline for refresh token
     # force to always make user click authorize
     authorization_url, state = google.authorization_url(authorization_base_url, access_type="offline", prompt="select_account")
-
-    # Serialized, store google object in session
-    google_json = json.dumps(google)
-    session["google"] = google_json
 
     return redirect(authorization_url)
 
@@ -84,28 +83,24 @@ def register_page():
 def my_fourth_page():
     return render_template('concerts.html', concerts=CONCERTS)
 
-@app.route('/google3d01949f3bff88dd.html')
-def google_page():
-    return render_template('google3d01949f3bff88dd.html')
+@app.route('/logout')
+def logout_page():
+    # remove the username from the session if it's there
+    session.pop('username', None)
+    return redirect('/')
 
 @app.route('/oauth2callback', methods=['GET', 'POST'])
 def oauth2callback_page():
     # Get the authorization verifier code from the callback url
     redirect_response = request.url
 
-    # get json from session
-    google_json = session["google"]
-    # convert google_json to google object
-    google= json.loads(google_json)
-
     # Fetch the access token
     google.fetch_token(token_url, client_secret=client_secret, authorization_response=redirect_response)
 
     # Fetch a protected resource, i.e. user profile
     r = google.get('https://www.googleapis.com/oauth2/v1/userinfo')
-    print('Response UserInfo :')
-    print(r.content)
-    return render_template('oauth2callback.html')
+    session['username'] = r.json()['name']
+    return redirect('/')
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True, port=5001)
