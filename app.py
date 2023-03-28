@@ -66,7 +66,8 @@ def favicon():
 def my_first_page():
     if 'username' in session:
         username = session.get('username')
-        return render_template('home.html', username=username)
+        picture = session.get('picture')
+        return render_template('home.html', username=username, picture=picture) 
     else:
         return render_template('home.html', username=None)
 
@@ -99,7 +100,13 @@ def oauth2callback_page():
 
     # Fetch a protected resource, i.e. user profile
     r = google.get('https://www.googleapis.com/oauth2/v1/userinfo')
+    json = r.json()
+    print(json)
+
     session['username'] = r.json()['name']
+    session['picture'] = r.json()['picture']
+    session['email'] = r.json()['email']
+   
     return redirect('/')
 
 if __name__ == '__main__':

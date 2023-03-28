@@ -14,11 +14,12 @@
   <body>
     <div class="container">
       <div class="row nav text-start fs-1 lh-lg fw-bold">
-        <h1 class="col-6 mt-2">芬棻音樂工作坊</h1>
+        <h1 class="col-4 mt-2">芬棻音樂工作坊</h1>
         {% if username %}
           <a class="col-2 nav-link active fs-3" href="/logout">Logout</a>
           <a class="col-2 nav-link active fs-3" href="/concerts">Concerts</a>
           <p class="col-2 nav-link active fs-3">{{username}}</p>
+          <img class="col-1 nav-link active" src={{picture}} alt="your image">
         {% else %}
           <a class="col-2 nav-link active fs-3" aria-current="page" href="/login">Login</a>
         {% endif %}
